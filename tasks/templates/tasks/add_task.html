@@ -1,0 +1,35 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-5">
+            <h3 class="fw-bold mb-4 text-center">Create New Task</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-secondary small">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger small">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary shadow">Save Task</button>
+                    <a href="{% url 'task_list' %}" class="btn btn-link text-muted text-decoration-none mt-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Simple JS to inject Bootstrap classes into Django's auto-generated form fields
+    document.querySelectorAll('input, select, textarea').forEach(el => {
+        el.classList.add('form-control');
+        el.classList.add('rounded-3');
+    });
+</script>
+{% endblock %}

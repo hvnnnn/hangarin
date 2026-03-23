@@ -1,0 +1,85 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="col-md-5">
+        <div class="card border-0 shadow-lg" style="border-radius: 25px;">
+            <div class="card-body p-5 text-center">
+                <h2 class="fw-bold mb-3 text-primary"> Join Hangarin</h2>
+                <p class="text-muted mb-4 small">Create an account to start organizing your goals.</p>
+                
+                {% if form.errors %}
+                    <div class="alert alert-danger text-start mb-4 shadow-sm" style="border-radius: 15px; font-size: 0.8rem;">
+                        <ul class="mb-0 ps-3">
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <form method="POST" action="{% url 'signup' %}" class="text-start" novalidate>
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-secondary ms-2">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.help_text %}
+                                <div class="form-text ms-2" style="font-size: 0.65rem; line-height: 1.2;">
+                                    {{ field.help_text|safe }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-primary w-100 rounded-pill py-2 fw-bold mt-3 shadow-sm text-uppercase" style="letter-spacing: 1px;">
+                        Create Account
+                    </button>
+                </form>
+                
+                <div class="mt-4 pt-3 border-top">
+                    <p class="small text-muted mb-0">Already have an account? 
+                        <a href="{% url 'login' %}" class="text-primary fw-bold text-decoration-none">Log In</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Styling the Django default form fields to look aesthetic */
+    input {
+        display: block;
+        width: 100%;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: #212529;
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 50px !important;
+        transition: all 0.2s ease-in-out;
+    }
+
+    input:focus {
+        background-color: #fff;
+        border-color: #0d6efd;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.05);
+    }
+
+    /* Fix for Django help text list styling */
+    .form-text ul {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 5px;
+    }
+</style>
+{% endblock %}

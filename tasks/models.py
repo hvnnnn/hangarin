@@ -1,6 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User # 1. IMPORT THIS
 
-# Create your models here.
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -28,6 +28,9 @@ class Priority(models.Model):
         return self.name
 
 class Task(BaseModel):
+    # 2. ADD THIS FIELD TO LINK TASK TO USER
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="tasks", null=True, blank=True)
+
     STATUS_CHOICES = [
         ("Pending", "Pending"),
         ("In Progress", "In Progress"),
@@ -48,24 +51,19 @@ class Task(BaseModel):
 
     def __str__(self):
         return self.title
+
 class SubTask(BaseModel):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
-
-    STATUS_CHOICES = [
-        ("Pending", "Pending"),
-        ("In Progress", "In Progress"),
-        ("Completed", "Completed"),
-    ]
-
     title = models.CharField(max_length=255)
     status = models.CharField(
         max_length=50,
-        choices=STATUS_CHOICES,
+        choices=[("Pending", "Pending"), ("In Progress", "In Progress"), ("Completed", "Completed")],
         default="Pending"
     )
 
     def __str__(self):
         return self.title
+
 class Note(BaseModel):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
     content = models.TextField()
