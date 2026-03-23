@@ -225,19 +225,11 @@
                                 {% endif %}
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'note_list' %}active{% endif %}" 
+                            href="{% url 'note_list' %}">Notes</a>
+                        </li>
                     </ul>
-
-                    <div class="d-flex align-items-center flex-wrap gap-3 mt-3 mt-lg-0">
-                        <form class="search-container" action="{% url 'task_list' %}" method="GET">
-                            <div class="input-group">
-                                <input type="text" name="search" class="form-control" placeholder="Search tasks..." value="{{ request.GET.search }}">
-                            </div>
-                        </form>
-
-                        <a href="{% url 'add_task' %}" class="btn btn-add-task">
-                            <i class="bi bi-plus-lg me-1"></i> New Task
-                        </a>
-                    </div>
                 </div>
             </div>
         </nav>

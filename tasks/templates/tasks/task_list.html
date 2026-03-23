@@ -2,12 +2,31 @@
 
 {% block content %}
 
-<div class="row mb-5 align-items-end">
-    <div class="col-lg-5">
+<div class="row mb-4 align-items-center">
+    <div class="col-lg-4">
         <h2 class="fw-bold m-0 text-dark">Dashboard</h2>
-        <p class="text-muted mb-lg-0">Managing <strong>{{ tasks.count }}</strong> items in your space.</p>
+        <p class="text-muted mb-0">Managing <strong>{{ tasks.count }}</strong> items in your space.</p>
     </div>
-    <div class="col-lg-7 text-lg-end">
+    
+    <div class="col-lg-5 mt-3 mt-lg-0">
+        <form action="{% url 'task_list' %}" method="GET">
+            <div class="input-group shadow-sm" style="border-radius: 12px; overflow: hidden; border: 1px solid #e0e0e0;">
+                <span class="input-group-text bg-white border-0"><i class="bi bi-search text-muted"></i></span>
+                <input type="text" name="search" class="form-control border-0 px-2" placeholder="Search tasks..." value="{{ request.GET.search }}">
+                <button class="btn btn-white border-0 text-primary fw-bold" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-lg-3 text-lg-end mt-3 mt-lg-0">
+        <a href="{% url 'add_task' %}" class="btn btn-add-task rounded-pill px-4 fw-bold shadow-sm py-2">
+            <i class="bi bi-plus-lg me-1"></i> NEW TASK
+        </a>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-12 text-lg-end">
         <div class="d-flex flex-wrap gap-2 justify-content-lg-end">
             <a href="{% url 'task_list' %}" class="btn btn-sm {% if not request.GET.status %}btn-primary shadow-sm{% else %}btn-outline-primary{% endif %} rounded-pill px-4 fw-bold">ALL</a>
             
@@ -41,7 +60,7 @@
                             <li><a class="dropdown-item py-2" href="{% url 'edit_task' task.id %}"><i class="bi bi-pencil-square me-2 text-primary"></i> Edit</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <button type="button" class="dropdown-item py-2 text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ task.id }}">
+                                <button type="button" class="dropdown-item py-2 text-danger" data-bs-target="#deleteModal{{ task.id }}" data-bs-toggle="modal">
                                     <i class="bi bi-trash3 me-2"></i> Delete Task
                                 </button>
                             </li>
@@ -111,12 +130,25 @@
         <i class="bi bi-cloud-slash text-muted" style="font-size: 4rem; opacity: 0.4;"></i>
         <h4 class="text-muted mt-3">No tasks found in this view.</h4>
         <p class="text-secondary">Try changing the filter or create a new goal!</p>
-        <a href="{% url 'add_task' %}" class="btn btn-primary rounded-pill px-4 mt-2 shadow">+ Add Task</a>
+        <a href="{% url 'add_task' %}" class="btn btn-add-task rounded-pill px-4 mt-2 shadow">+ Add Task</a>
     </div>
     {% endfor %}
 </div>
 
 <style>
+    /* Sky Blue Theme Button Color */
+    .btn-add-task {
+        background-color: #0d6efd; /* Adjust this to your specific Sky Blue hex code if needed */
+        color: white;
+        border: none;
+        transition: 0.3s;
+    }
+    .btn-add-task:hover {
+        background-color: #0b5ed7;
+        color: white;
+        transform: scale(1.05);
+    }
+    
     .rotate-icon {
         display: inline-block;
         animation: rotation 10s infinite linear;
@@ -130,5 +162,15 @@
         transition: 0.3s;
         box-shadow: 0 1rem 3rem rgba(0,0,0,.1) !important;
     }
+    
+    .priority-pill {
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: bold;
+    }
+    .priority-high { background-color: #ffe5e5; color: #df3e38; }
+    .priority-medium { background-color: #fff4e5; color: #f0ad4e; }
+    .priority-low { background-color: #e5f9e5; color: #5cb85c; }
 </style>
 {% endblock %}

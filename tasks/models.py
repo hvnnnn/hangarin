@@ -64,10 +64,13 @@ class SubTask(BaseModel):
     def __str__(self):
         return self.title
 
-class Note(BaseModel):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+class Note(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, default="Untitled Note")
     content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.content[:20]
+        return self.title
 

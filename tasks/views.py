@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages  
+from .models import Note
 
 
 @login_required
@@ -91,3 +92,33 @@ def signup_view(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+# 1. List all notes
+@login_required
+def note_list(request):
+    notes = Note.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'tasks/note_list.html', {'notes': notes})
+
+# 2. Add a new note
+@login_required
+def note_add(request):
+    if request.method == "POST":
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        Note.objects.create(user=request.user, title=title, content=content)
+        return redirect('note_list')
+    return render(request, 'tasks/note_form.html')
+
+# 3. Edit a note
+@login_required
+def note_edit(request):
+    # (Logic for editing goes here - similar to task_edit)
+    pass
+
+# 4. Delete a note
+@login_required
+def note_delete(request, pk):
+    note = get_object_or_404(Note, pk=pk, user=request.user)
+    note.delete()
+    return redirect('note_list')

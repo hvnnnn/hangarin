@@ -29,6 +29,6 @@ class PriorityAdmin(admin.ModelAdmin):
 
 @admin.register(Note)
 class NoteAdmin(admin.ModelAdmin):
-    list_display = ('task', 'content', 'created_at')
+    list_display = ('title', 'user', 'created_at')
     list_filter = ('created_at',)
-    search_fields = ('content',)
+    search_fields = ('title', 'content')

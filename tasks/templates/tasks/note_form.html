@@ -1,0 +1,30 @@
+{% extends 'tasks/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card shadow p-4 border-0">
+            <h3 class="fw-bold mb-4 text-primary">Create New Note</h3>
+            
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-secondary small">Title</label>
+                    <input type="text" name="title" class="form-control rounded-3" placeholder="Enter a title..." required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-secondary small">Content</label>
+                    <textarea name="content" class="form-control rounded-3" rows="6" placeholder="Write your thoughts here..." required></textarea>
+                </div>
+
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary shadow">Save Note</button>
+                    <a href="{% url 'note_list' %}" class="btn btn-link text-muted text-decoration-none mt-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

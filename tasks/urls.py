@@ -10,4 +10,7 @@ urlpatterns = [
     path('edit/<int:task_id>/', views.edit_task, name='edit_task'), # Added for CRUD
     path('signup/', views.signup_view, name='signup'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('notes/', views.note_list, name='note_list'),
+    path('notes/add/', views.note_add, name='note_add'),
+    path('notes/delete/<int:pk>/', views.note_delete, name='note_delete'),
 ]
