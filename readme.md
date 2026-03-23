@@ -91,7 +91,7 @@ This project is deployed using PythonAnywhere.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 hangarin/
@@ -103,7 +103,7 @@ hangarin/
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 Developed by: *Princess Heaven Rica*
 

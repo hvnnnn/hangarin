@@ -70,3 +70,4 @@ class Note(BaseModel):
 
     def __str__(self):
         return self.content[:20]
+
