@@ -9,12 +9,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages  
 
 
+@login_required
 def add_task(request):
-    form = TaskForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('task_list')
-
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False) 
+            task.user = request.user     
+            task.save()                    
+            return redirect('task_list')  
+    else:
+        form = TaskForm()
     return render(request, 'tasks/add_task.html', {'form': form})
 
 
