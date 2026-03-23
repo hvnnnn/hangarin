@@ -112,3 +112,18 @@ Developed by: *Princess Heaven Rica*
 ##  Notes
 
 This project is developed as part of an academic requirement.
+
+## App Preview
+
+### Main Dashboard
+![Dashboard](images/dashboard.png)
+
+### Authentication
+| Login Page | Sign In (Registration) |
+| :---: | :---: |
+| ![Login](images/login.png) | ![Sign In](images/signin.png) |
+
+## Task Management
+| Reminders View | New Task Form |
+| :---: | :---: |
+| ![Reminders](images/reminders.png) | ![New Task](images/newtask.png) |
