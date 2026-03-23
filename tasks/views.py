@@ -10,20 +10,11 @@ from django.contrib import messages
 
 
 def add_task(request):
-    if request.method == 'POST':
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            # 1. Create the task object but don't save to DB yet
-            task = form.save(commit=False)
-            
-            # 2. Manually set the user to the logged-in user
-            task.user = request.user
-            
-            # 3. Now save to the database
-            task.save()
-            return redirect('task_list')
-    else:
-        form = TaskForm()
+    form = TaskForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('task_list')
+
     return render(request, 'tasks/add_task.html', {'form': form})
 
 
