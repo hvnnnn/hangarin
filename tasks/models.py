@@ -53,7 +53,7 @@ class Task(BaseModel):
         return self.title
 
 class SubTask(BaseModel):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="subtasks")
     title = models.CharField(max_length=255)
     status = models.CharField(
         max_length=50,

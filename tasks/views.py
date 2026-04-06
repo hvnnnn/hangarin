@@ -122,3 +122,11 @@ def note_delete(request, pk):
     note = get_object_or_404(Note, pk=pk, user=request.user)
     note.delete()
     return redirect('note_list')
+
+def add_subtask(request, task_id):
+    parent_task = get_object_or_404(Task, id=task_id)
+    if request.method == "POST":
+        title = request.POST.get('title')
+        if title:
+            SubTask.objects.create(task=parent_task, title=title)
+    return redirect('task_list')

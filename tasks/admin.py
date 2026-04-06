@@ -9,13 +9,14 @@ class TaskAdmin(admin.ModelAdmin):
     
 @admin.register(SubTask)
 class SubTaskAdmin(admin.ModelAdmin):
-    list_display = ('title', 'status', 'get_task_name')
+    list_display = ('title', 'status', 'parent_task_name') 
     list_filter = ('status',)
     search_fields = ('title',)
 
-    def get_task_name(self, obj):
+    def parent_task_name(self, obj):
         return obj.task.title
-    get_task_name.short_description = 'Parent Task'
+
+    parent_task_name.short_description = 'Parent Task'
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
