@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -118,6 +119,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# This is the "Magic" list
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+# This is used for 'collectstatic' later
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -140,14 +148,14 @@ PWA_APP_ORIENTATION = 'portrait'
 PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
-{
-'src': '/static/img/icon-192.png',
-'sizes': '192x192'
-},
-{
-'src': '/static/img/icon-512.png',
-'sizes': '512x512'
-}
+    {
+        'src': '/static/img/icon-192.png',
+        'sizes': '736x414'  # Match the actual size it detected
+    },
+    {
+        'src': '/static/img/icon-512.png',
+        'sizes': '736x736'  # Match the actual size it detected
+    }
 ]
 PWA_APP_ICONS_APPLE = [
 {
@@ -159,5 +167,14 @@ PWA_APP_ICONS_APPLE = [
 'sizes': '512x512'
 }
 ]
+PWA_APP_SCREENSHOTS = [
+    {
+        'src': '/static/img/screenshot.png',
+        'sizes': '2000x2000', # Changed this to match what the browser saw
+        'type': 'image/png',
+        'form_factor': 'wide', # Adding this to fix the first warning
+    }
+]
 PWA_APP_DIR = 'ltr'
-PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js')
+
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static', 'js', 'serviceworker.js')

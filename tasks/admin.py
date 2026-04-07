@@ -1,11 +1,16 @@
 from django.contrib import admin
 from .models import Task, SubTask, Category, Priority, Note
 
+class SubTaskInline(admin.TabularInline):
+    model = SubTask
+    extra = 1
+
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     list_display = ('title', 'status', 'deadline', 'priority', 'category')
     list_filter = ('status', 'priority', 'category')
     search_fields = ('title', 'description')
+    inlines = [SubTaskInline]
     
 @admin.register(SubTask)
 class SubTaskAdmin(admin.ModelAdmin):
