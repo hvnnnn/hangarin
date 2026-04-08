@@ -157,15 +157,17 @@ PWA_APP_ICONS = [
         'sizes': '736x736'  # Match the actual size it detected
     }
 ]
-PWA_APP_ICONS_APPLE = [
-{
-'src': '/static/img/icon-192.png',
-'sizes': '192x192'
-},
-{
-'src': '/static/img/icon-512.png',
-'sizes': '512x512'
-}
+PWA_APP_ICONS = [
+    {
+        'src': '/static/img/icon-192.png',
+        'sizes': '405x405',  # Match your new size
+        'purpose': 'any maskable'
+    },
+    {
+        'src': '/static/img/icon-512.png',
+        'sizes': '736x736',  # Match your square 512 size
+        'purpose': 'any maskable'
+    }
 ]
 PWA_APP_SCREENSHOTS = [
     {
